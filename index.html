@@ -1,197 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>T&D Rentals — Google Ads Dashboard</title>
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; }
-  .header { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 32px 40px; border-bottom: 1px solid #334155; }
-  .header h1 { font-size: 28px; font-weight: 700; color: #f8fafc; }
-  .header .subtitle { color: #94a3b8; font-size: 14px; margin-top: 4px; }
-  .header .update-badge { display: inline-block; background: #065f46; color: #6ee7b7; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-top: 8px; }
-  .container { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
-  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 32px; }
-  .kpi-card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 20px; }
-  .kpi-card .label { font-size: 12px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
-  .kpi-card .value { font-size: 32px; font-weight: 700; color: #f8fafc; margin-top: 8px; }
-  .kpi-card .detail { font-size: 13px; color: #64748b; margin-top: 4px; }
-  .section-title { font-size: 18px; font-weight: 600; color: #f8fafc; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid #334155; }
-  .campaign-grid { display: grid; gap: 16px; margin-bottom: 32px; }
-  .campaign-card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 24px; }
-  .campaign-card .name { font-size: 16px; font-weight: 600; color: #f8fafc; margin-bottom: 4px; }
-  .campaign-card .type-badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px; margin-bottom: 12px; }
-  .badge-search { background: #1e3a5f; color: #60a5fa; }
-  .badge-pmax { background: #3b1f5e; color: #c084fc; }
-  .campaign-card .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
-  .campaign-card .metric { }
-  .campaign-card .metric .m-label { font-size: 11px; color: #94a3b8; text-transform: uppercase; }
-  .campaign-card .metric .m-value { font-size: 20px; font-weight: 600; color: #e2e8f0; }
-  .alert-box { background: #451a03; border: 1px solid #92400e; border-radius: 12px; padding: 20px; margin-bottom: 16px; }
-  .alert-box .alert-title { font-size: 14px; font-weight: 700; color: #fbbf24; margin-bottom: 6px; }
-  .alert-box .alert-text { font-size: 13px; color: #fde68a; line-height: 1.5; }
-  .info-box { background: #0c2d48; border: 1px solid #1e5a8a; border-radius: 12px; padding: 20px; margin-bottom: 16px; }
-  .info-box .info-title { font-size: 14px; font-weight: 700; color: #60a5fa; margin-bottom: 6px; }
-  .info-box .info-text { font-size: 13px; color: #93c5fd; line-height: 1.5; }
-  .footer { text-align: center; color: #475569; font-size: 12px; padding: 32px; }
-  .yd-section { margin-bottom: 32px; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T&D Rentals — Google Ads Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f8fafc; color: #1e293b; }
+        .header { background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); color: white; padding: 32px 40px; }
+        .header h1 { font-size: 28px; font-weight: 700; }
+        .header p { opacity: 0.85; margin-top: 4px; font-size: 14px; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 24px 40px; }
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+        .metric-card { background: white; border-radius: 12px; padding: 20px 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+        .metric-card .label { font-size: 13px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
+        .metric-card .value { font-size: 28px; font-weight: 700; margin-top: 4px; color: #0f172a; }
+        .metric-card .sub { font-size: 12px; color: #94a3b8; margin-top: 2px; }
+        .card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); margin-bottom: 24px; }
+        .card h2 { font-size: 18px; font-weight: 600; margin-bottom: 16px; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th { padding: 10px 16px; text-align: left; border-bottom: 2px solid #e5e7eb; font-weight: 600; color: #475569; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .chart-container { position: relative; height: 300px; }
+        .footer { text-align: center; padding: 24px; color: #94a3b8; font-size: 13px; }
+    </style>
 </head>
 <body>
-<div class="header">
-  <h1>T&D Rentals — Google Ads Dashboard</h1>
-  <div class="subtitle">Managed by Automateboss</div>
-  <div class="update-badge">Updated April 13, 2026 at 08:51 AM</div>
-</div>
-<div class="container">
+    <div class="header">
+        <h1>T&D Rentals — Google Ads Dashboard</h1>
+        <p>Last updated: April 13, 2026 at 09:13 AM &nbsp;|&nbsp; Managed by Automateboss</p>
+    </div>
+    <div class="container">
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="label">Total Impressions</div>
+                <div class="value">40,966</div>
+                <div class="sub">People who saw your ads</div>
+            </div>
+            <div class="metric-card">
+                <div class="label">Total Clicks</div>
+                <div class="value">2,016</div>
+                <div class="sub">Visits to your website</div>
+            </div>
+            <div class="metric-card">
+                <div class="label">Click-Through Rate</div>
+                <div class="value">4.92%</div>
+                <div class="sub">% of viewers who clicked</div>
+            </div>
+            <div class="metric-card">
+                <div class="label">Avg. Cost Per Click</div>
+                <div class="value">$1.31</div>
+                <div class="sub">Cost for each website visit</div>
+            </div>
+            <div class="metric-card">
+                <div class="label">Conversions</div>
+                <div class="value">2</div>
+                <div class="sub">Leads / form fills</div>
+            </div>
+            <div class="metric-card">
+                <div class="label">Total Spend</div>
+                <div class="value">$2,637.33</div>
+                <div class="sub">Budget: $104.00/day</div>
+            </div>
+        </div>
 
-  <div class="section-title">All-Time Performance</div>
-  <div class="kpi-grid">
-    <div class="kpi-card">
-      <div class="label">Impressions</div>
-      <div class="value">40,949</div>
-      <div class="detail">Total ad views</div>
-    </div>
-    <div class="kpi-card">
-      <div class="label">Clicks</div>
-      <div class="value">2,015</div>
-      <div class="detail">Website visits</div>
-    </div>
-    <div class="kpi-card">
-      <div class="label">CTR</div>
-      <div class="value">4.9%</div>
-      <div class="detail">Click-through rate</div>
-    </div>
-    <div class="kpi-card">
-      <div class="label">Avg CPC</div>
-      <div class="value">$1.31</div>
-      <div class="detail">Cost per click</div>
-    </div>
-    <div class="kpi-card">
-      <div class="label">Total Spent</div>
-      <div class="value">$2,637</div>
-      <div class="detail">Ad spend to date</div>
-    </div>
-    <div class="kpi-card">
-      <div class="label">Conversions</div>
-      <div class="value">2</div>
-      <div class="detail">Total conversions</div>
-    </div>
-  </div>
+        <div class="card">
+            <h2>Last 7 Days — Clicks & Impressions</h2>
+            <div class="chart-container">
+                <canvas id="trendsChart"></canvas>
+            </div>
+        </div>
 
-  <div class="yd-section">
-    <div class="section-title">Yesterday's Performance</div>
-    <div class="kpi-grid">
-      <div class="kpi-card">
-        <div class="label">Impressions</div>
-        <div class="value">3,792</div>
-      </div>
-      <div class="kpi-card">
-        <div class="label">Clicks</div>
-        <div class="value">123</div>
-      </div>
-      <div class="kpi-card">
-        <div class="label">Spend</div>
-        <div class="value">$104.42</div>
-      </div>
-      <div class="kpi-card">
-        <div class="label">Conversions</div>
-        <div class="value">0</div>
-      </div>
+        <div class="card">
+            <h2>Last 7 Days — Daily Spend</h2>
+            <div class="chart-container">
+                <canvas id="spendChart"></canvas>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Campaign Breakdown</h2>
+            <div style="overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Campaign</th>
+                            <th style="text-align:center;">Type</th>
+                            <th style="text-align:center;">Bidding</th>
+                            <th style="text-align:right;">Impressions</th>
+                            <th style="text-align:right;">Clicks</th>
+                            <th style="text-align:right;">CTR</th>
+                            <th style="text-align:right;">Avg CPC</th>
+                            <th style="text-align:right;">Conversions</th>
+                            <th style="text-align:right;">Cost</th>
+                            <th style="text-align:right;">Budget</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        <tr>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;">
+                <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;margin-right:8px;"></span>
+                Campaign #1
+            </td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:center;">PERFORMANCE_MAX</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:center;">MAXIMIZE_CONVERSIONS</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:right;">28,605</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:right;">533</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:right;">1.86%</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:right;">$0.98</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:right;">2</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:right;">$522.42</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:right;">$21.00/day</td>
+        </tr>
+        <tr>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;">
+                <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;margin-right:8px;"></span>
+                [Search] Equipment Rentals — Roseville/Sacramento
+            </td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:center;">SEARCH</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:center;">TARGET_SPEND</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:right;">6,273</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:right;">564</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:right;">8.99%</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:right;">$1.50</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:right;">0</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:right;">$843.32</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:right;">$33.00/day</td>
+        </tr>
+        <tr>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;">
+                <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#22c55e;margin-right:8px;"></span>
+                [Search] Trailer Rentals — Roseville/Sacramento
+            </td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:center;">SEARCH</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:center;">TARGET_SPEND</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:right;">6,088</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:right;">919</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:right;">15.10%</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:right;">$1.38</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:right;">0</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:right;">$1271.59</td>
+            <td style="padding:12px 16px;border-bottom:1px solid #e5e7eb;text-align:right;">$50.00/day</td>
+        </tr></tbody>
+                    <tfoot>
+                        <tr style="font-weight:700;background:#f8fafc;">
+                            <td style="padding:12px 16px;">TOTAL</td>
+                            <td></td><td></td>
+                            <td style="padding:12px 16px;text-align:right;">40,966</td>
+                            <td style="padding:12px 16px;text-align:right;">2,016</td>
+                            <td style="padding:12px 16px;text-align:right;">4.92%</td>
+                            <td style="padding:12px 16px;text-align:right;">$1.31</td>
+                            <td style="padding:12px 16px;text-align:right;">2</td>
+                            <td style="padding:12px 16px;text-align:right;">$2,637.33</td>
+                            <td style="padding:12px 16px;text-align:right;">$104.00/day</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
     </div>
-  </div>
-
-  <div class="yd-section">
-    <div class="section-title">Last 7 Days</div>
-    <div class="kpi-grid">
-      <div class="kpi-card">
-        <div class="label">Impressions</div>
-        <div class="value">14,061</div>
-      </div>
-      <div class="kpi-card">
-        <div class="label">Clicks</div>
-        <div class="value">696</div>
-      </div>
-      <div class="kpi-card">
-        <div class="label">Spend</div>
-        <div class="value">$710.31</div>
-      </div>
-      <div class="kpi-card">
-        <div class="label">Conversions</div>
-        <div class="value">1</div>
-      </div>
+    <div class="footer">
+        Dashboard by Automateboss &nbsp;|&nbsp; Data pulled from Google Ads API &nbsp;|&nbsp; Updated daily
     </div>
-  </div>
+    <script>
+        const labels = ["2026-04-06", "2026-04-07", "2026-04-08", "2026-04-09", "2026-04-10", "2026-04-11", "2026-04-12"];
+        const clicksData = [69, 96, 77, 96, 87, 148, 123];
+        const impressionsData = [830, 1686, 950, 1363, 1356, 4084, 3792];
+        const costData = [86.7, 89.49, 108.67, 100.98, 104.56, 115.5, 104.42];
 
-  <div class="section-title">Campaigns</div>
-  <div class="campaign-grid">
-    <div class="campaign-card">
-      <div class="name">Campaign #1</div>
-      <div class="type-badge badge-pmax">Performance Max</div>
-      <div class="metrics">
-        <div class="metric"><div class="m-label">Impressions</div><div class="m-value">28,595</div></div>
-        <div class="metric"><div class="m-label">Clicks</div><div class="m-value">533</div></div>
-        <div class="metric"><div class="m-label">CTR</div><div class="m-value">1.9%</div></div>
-        <div class="metric"><div class="m-label">Avg CPC</div><div class="m-value">$0.98</div></div>
-        <div class="metric"><div class="m-label">Spend</div><div class="m-value">$522.42</div></div>
-        <div class="metric"><div class="m-label">Conversions</div><div class="m-value">2</div></div>
-        <div class="metric"><div class="m-label">Daily Budget</div><div class="m-value">$21/day</div></div>
-        <div class="metric"><div class="m-label">Bidding</div><div class="m-value" style="font-size:13px">Maximize Conversions</div></div>
-      </div>
-    </div>
-    <div class="campaign-card">
-      <div class="name">[Search] Equipment Rentals — Roseville/Sacramento</div>
-      <div class="type-badge badge-search">Search</div>
-      <div class="metrics">
-        <div class="metric"><div class="m-label">Impressions</div><div class="m-value">6,267</div></div>
-        <div class="metric"><div class="m-label">Clicks</div><div class="m-value">564</div></div>
-        <div class="metric"><div class="m-label">CTR</div><div class="m-value">9.0%</div></div>
-        <div class="metric"><div class="m-label">Avg CPC</div><div class="m-value">$1.50</div></div>
-        <div class="metric"><div class="m-label">Spend</div><div class="m-value">$843.32</div></div>
-        <div class="metric"><div class="m-label">Conversions</div><div class="m-value">0</div></div>
-        <div class="metric"><div class="m-label">Daily Budget</div><div class="m-value">$33/day</div></div>
-        <div class="metric"><div class="m-label">Bidding</div><div class="m-value" style="font-size:13px">Target Spend</div></div>
-      </div>
-    </div>
-    <div class="campaign-card">
-      <div class="name">[Search] Trailer Rentals — Roseville/Sacramento</div>
-      <div class="type-badge badge-search">Search</div>
-      <div class="metrics">
-        <div class="metric"><div class="m-label">Impressions</div><div class="m-value">6,087</div></div>
-        <div class="metric"><div class="m-label">Clicks</div><div class="m-value">918</div></div>
-        <div class="metric"><div class="m-label">CTR</div><div class="m-value">15.1%</div></div>
-        <div class="metric"><div class="m-label">Avg CPC</div><div class="m-value">$1.38</div></div>
-        <div class="metric"><div class="m-label">Spend</div><div class="m-value">$1,271.11</div></div>
-        <div class="metric"><div class="m-label">Conversions</div><div class="m-value">0</div></div>
-        <div class="metric"><div class="m-label">Daily Budget</div><div class="m-value">$50/day</div></div>
-        <div class="metric"><div class="m-label">Bidding</div><div class="m-value" style="font-size:13px">Target Spend</div></div>
-      </div>
-    </div>
-  </div>
+        new Chart(document.getElementById('trendsChart'), {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    { label: 'Clicks', data: clicksData, borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.1)', fill: true, tension: 0.3 },
+                    { label: 'Impressions', data: impressionsData, borderColor: '#8b5cf6', backgroundColor: 'rgba(139,92,246,0.1)', fill: true, tension: 0.3, yAxisID: 'y1' }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, title: { display: true, text: 'Clicks' } },
+                    y1: { beginAtZero: true, position: 'right', title: { display: true, text: 'Impressions' }, grid: { drawOnChartArea: false } }
+                }
+            }
+        });
 
-  <div class="section-title">Alerts & Optimization Notes</div>
-  
-  <div class="alert-box">
-    <div class="alert-title">⚠️ CRITICAL: Conversion Tracking Issue</div>
-    <div class="alert-text">Search campaigns have 1,482 clicks but 0 conversions. The Google Ads conversion tag may not be properly installed on tanddrentals.com. This needs to be checked ASAP to track leads accurately.</div>
-  </div>
-
-  <div class="info-box">
-    <div class="info-title">📊 Bidding Strategy Phase</div>
-    <div class="info-text">Phase 2 — Max Clicks / Target Spend (collecting conversion data, 2/15 conversions for Phase 3)</div>
-  </div>
-
-  <div class="info-box">
-    <div class="info-title">💰 Budget</div>
-    <div class="info-text">Total daily budget: $104/day — Yesterday's spend: $104.42 (100% utilization)</div>
-  </div>
-
-
-  <div class="footer">
-    <p>Dashboard managed by Automateboss for T&D Rentals</p>
-    <p>Data pulled from Google Ads API — April 13, 2026</p>
-  </div>
-</div>
+        new Chart(document.getElementById('spendChart'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{ label: 'Daily Spend ($)', data: costData, backgroundColor: 'rgba(34,197,94,0.7)', borderColor: '#22c55e', borderWidth: 1 }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: { y: { beginAtZero: true, title: { display: true, text: 'Spend ($)' } } }
+            }
+        });
+    </script>
 </body>
 </html>
