@@ -1,42 +1,225 @@
-<!doctype html>
-<html><head><meta charset="utf-8"><title>T&D Rentals — Google Ads Dashboard</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>T&D Rentals — Google Ads Dashboard</title>
 <style>
-body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;margin:0;background:#f5f7fa;color:#1a2332}
-header{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;padding:28px 40px}
-h1{margin:0;font-size:28px}
-.sub{opacity:.85;margin-top:4px}
-.container{max-width:1200px;margin:0 auto;padding:30px 40px}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin-bottom:28px}
-.kpi{background:#fff;padding:18px;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-.kpi .label{font-size:12px;text-transform:uppercase;color:#64748b;letter-spacing:.5px}
-.kpi .value{font-size:24px;font-weight:700;margin-top:6px}
-table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-th,td{padding:12px;text-align:left;border-bottom:1px solid #e2e8f0;font-size:13px}
-th{background:#f1f5f9;font-weight:600;text-transform:uppercase;font-size:11px;letter-spacing:.5px}
-.alerts{background:#fef3c7;border-left:4px solid #f59e0b;padding:16px 20px;margin-bottom:24px;border-radius:6px}
-.alerts h3{margin:0 0 8px 0;color:#92400e}
-.phases{background:#fff;padding:20px;border-radius:10px;margin-top:24px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-.phases h3{margin-top:0}
-footer{text-align:center;color:#64748b;font-size:12px;padding:20px}
-</style></head><body>
-<header><h1>T&D Rentals — Google Ads Dashboard</h1><div class="sub">Updated April 15, 2026</div></header>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f3f4f6;color:#1f2937}
+.header{background:linear-gradient(135deg,#1e3a5f 0%,#2563eb 100%);color:white;padding:28px 32px 24px}
+.header h1{font-size:22px;font-weight:800;letter-spacing:-.5px}
+.header-meta{margin-top:8px;opacity:.8;font-size:13px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.container{max-width:1280px;margin:0 auto;padding:24px 16px}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:14px;margin-bottom:24px}
+.kpi{background:white;border-radius:12px;padding:18px 20px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.kpi .label{font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.kpi .value{font-size:26px;font-weight:800;color:#111827;margin-top:5px;line-height:1}
+.kpi .sub{font-size:12px;color:#9ca3af;margin-top:5px}
+.card{background:white;border-radius:12px;padding:22px 24px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:20px}
+.card h2{font-size:15px;font-weight:700;margin-bottom:14px;color:#111827;display:flex;align-items:center;gap:8px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:#9ca3af;font-weight:600;padding:8px 10px;border-bottom:2px solid #f3f4f6;white-space:nowrap}
+td{padding:10px 10px;border-bottom:1px solid #f9fafb;vertical-align:middle}
+tr:last-child td{border:none}
+tr:hover td{background:#fafafa}
+.footer{text-align:center;font-size:12px;color:#9ca3af;margin-top:12px;padding-bottom:32px}
+</style>
+</head>
+<body>
+<div class="header">
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
+    <div>
+      <h1>🚛 T&D Rentals — Google Ads Dashboard</h1>
+      <div class="header-meta">
+        <span>📅 April 16, 2026 at 11:51 AM</span>
+        <span>·</span>
+        <a href="https://td-rentals-dashboard.vercel.app" style="color:rgba(255,255,255,.85);text-decoration:none;">🔗 td-rentals-dashboard.vercel.app</a>
+        <span>·</span>
+        <span>Powered by Automateboss</span>
+      </div>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px"><span style="background:#fef2f2;color:#dc2626;border-radius:20px;padding:3px 12px;font-size:12px;font-weight:700;margin-left:8px;">⚠️ 2 Critical</span><span style="background:#fffbeb;color:#d97706;border-radius:20px;padding:3px 12px;font-size:12px;font-weight:700;margin-left:8px;">⚡ 1 Warnings</span></div>
+  </div>
+</div>
+
 <div class="container">
-<div class="alerts"><h3>⚠️ Optimization Alerts</h3><ul><li>LOW SPEND: [Search] CDL Trailers — Roseville/Sacramento spent $0.00 of $10.00 daily budget</li><li>CRITICAL: [Search] Equipment Rentals — Roseville/Sacramento has 607 clicks, 0 conversions — check conversion tag on tanddrentals.com</li><li>CRITICAL: [Search] Trailer Rentals — Roseville/Sacramento has 1011 clicks, 0 conversions — check conversion tag on tanddrentals.com</li></ul></div>
-<div class="kpis">
-<div class="kpi"><div class="label">Impressions</div><div class="value">44,869</div></div>
-<div class="kpi"><div class="label">Clicks</div><div class="value">2,197</div></div>
-<div class="kpi"><div class="label">Avg CTR</div><div class="value">4.90%</div></div>
-<div class="kpi"><div class="label">Spend</div><div class="value">$2862.63</div></div>
-<div class="kpi"><div class="label">Conversions</div><div class="value">2.0</div></div>
-<div class="kpi"><div class="label">Daily Budget</div><div class="value">$114.00</div></div>
+
+<!-- KPIs -->
+<div class="kpi-grid">
+  <div class="kpi"><div class="label">Total Impressions</div><div class="value">45,381</div><div class="sub">All campaigns (lifetime)</div></div>
+  <div class="kpi"><div class="label">Total Clicks</div><div class="value">2,258</div><div class="sub">All campaigns (lifetime)</div></div>
+  <div class="kpi"><div class="label">Avg CTR</div><div class="value">4.98%</div><div class="sub">Clicks ÷ Impressions</div></div>
+  <div class="kpi"><div class="label">Total Spend</div><div class="value">$2,993.15</div><div class="sub">All campaigns (lifetime)</div></div>
+  <div class="kpi">
+    <div class="label">Conversions</div>
+    <div class="value" style="">2.0</div>
+    <div class="sub">All campaigns</div>
+  </div>
+  <div class="kpi"><div class="label">Daily Budget</div><div class="value">$124</div><div class="sub">/day across all campaigns</div></div>
 </div>
-<h2>Campaign Performance</h2>
-<table><thead><tr><th>Campaign</th><th>Status</th><th>Channel</th><th>Bidding</th><th>Budget</th><th>Impr.</th><th>Clicks</th><th>CTR</th><th>Avg CPC</th><th>Spend</th><th>Conv.</th></tr></thead>
-<tbody><tr><td>Campaign #1</td><td>ENABLED</td><td>PERFORMANCE_MAX</td><td>MAXIMIZE_CONVERSIONS</td><td>$21.00</td><td>31,171</td><td>579</td><td>1.86%</td><td>$0.99</td><td>$571.16</td><td>2.0</td></tr>
-<tr><td>[Search] CDL Trailers — Roseville/Sacramento</td><td>PAUSED</td><td>SEARCH</td><td>MANUAL_CPC</td><td>$10.00</td><td>0</td><td>0</td><td>0.00%</td><td>$0.00</td><td>$0.00</td><td>0.0</td></tr>
-<tr><td>[Search] Equipment Rentals — Roseville/Sacramento</td><td>ENABLED</td><td>SEARCH</td><td>TARGET_SPEND</td><td>$33.00</td><td>6,902</td><td>607</td><td>8.79%</td><td>$1.51</td><td>$915.19</td><td>0.0</td></tr>
-<tr><td>[Search] Trailer Rentals — Roseville/Sacramento</td><td>ENABLED</td><td>SEARCH</td><td>TARGET_SPEND</td><td>$50.00</td><td>6,796</td><td>1,011</td><td>14.88%</td><td>$1.36</td><td>$1376.27</td><td>0.0</td></tr></tbody></table>
-<div class="phases"><h3>Bidding Phase Progress</h3><ul><li>Campaign #1: Phase 2 (Max Clicks) — clicks=579, conv=2.0</li><li>[Search] CDL Trailers — Roseville/Sacramento: Phase 1 (Manual CPC) — clicks=0, conv=0.0</li><li>[Search] Equipment Rentals — Roseville/Sacramento: Phase 2 (Max Clicks) — clicks=607, conv=0.0</li><li>[Search] Trailer Rentals — Roseville/Sacramento: Phase 2 (Max Clicks) — clicks=1011, conv=0.0</li></ul></div>
+
+<!-- Alerts -->
+<div class="card">
+  <h2>🚨 Optimization Alerts <span style="font-size:12px;font-weight:500;color:#6b7280;">(4 items)</span></h2>
+  <div style="border-left:4px solid #2563eb;background:#eff6ff;padding:10px 14px;margin:8px 0;border-radius:0 6px 6px 0;">
+          <span style="font-weight:700;color:#2563eb;font-size:11px;text-transform:uppercase;letter-spacing:.05em;">REMINDER</span>
+          <div style="margin-top:4px;color:#374151;font-size:14px;">CDL BUDGET CUTOVER in 13 days (April 29) — reduce from $20/day to $10/day at that time.</div>
+        </div><div style="border-left:4px solid #d97706;background:#fffbeb;padding:10px 14px;margin:8px 0;border-radius:0 6px 6px 0;">
+          <span style="font-weight:700;color:#d97706;font-size:11px;text-transform:uppercase;letter-spacing:.05em;">WARNING</span>
+          <div style="margin-top:4px;color:#374151;font-size:14px;">CAMPAIGN PAUSED — [Search] Equipment Rentals — Roseville/Sacramento is currently paused. Verify if intentional.</div>
+        </div><div style="border-left:4px solid #dc2626;background:#fef2f2;padding:10px 14px;margin:8px 0;border-radius:0 6px 6px 0;">
+          <span style="font-weight:700;color:#dc2626;font-size:11px;text-transform:uppercase;letter-spacing:.05em;">CRITICAL</span>
+          <div style="margin-top:4px;color:#374151;font-size:14px;">CONVERSION TRACKING — [Search] Equipment Rentals — Roseville/Sacramento (PAUSED, 607 historical clicks, 0 conversions). Confirm tag fix before re-enabling.</div>
+        </div><div style="border-left:4px solid #dc2626;background:#fef2f2;padding:10px 14px;margin:8px 0;border-radius:0 6px 6px 0;">
+          <span style="font-weight:700;color:#dc2626;font-size:11px;text-transform:uppercase;letter-spacing:.05em;">CRITICAL</span>
+          <div style="margin-top:4px;color:#374151;font-size:14px;">CONVERSION TRACKING BROKEN — [Search] Trailer Rentals — Roseville/Sacramento: 1,062 clicks, 0 conversions. Verify Google Ads conversion tag on tanddrentals.com.</div>
+        </div>
 </div>
-<footer>Automated update by Automateboss · April 15, 2026</footer>
-</body></html>
+
+<!-- Campaign table -->
+<div class="card">
+  <h2>📊 Campaign Performance <span style="font-size:12px;font-weight:400;color:#9ca3af;">(lifetime data)</span></h2>
+  <div style="overflow-x:auto">
+  <table>
+    <thead><tr>
+      <th>Campaign</th><th>Status</th><th>Type</th>
+      <th style="text-align:right">Impressions</th><th style="text-align:right">Clicks</th>
+      <th style="text-align:right">CTR</th><th style="text-align:right">Avg CPC</th>
+      <th style="text-align:right">Spend</th><th style="text-align:right">Daily Budget</th>
+      <th style="text-align:right">Conversions</th>
+    </tr></thead>
+    <tbody><tr>
+          <td style="font-weight:600;max-width:220px;font-size:13px;">Campaign #1</td>
+          <td>🟢 ENABLED</td>
+          <td style="font-size:12px;">Performance Max</td>
+          <td style="text-align:right;">31,190</td>
+          <td style="text-align:right;font-weight:600;">580</td>
+          <td style="text-align:right;">1.86%</td>
+          <td style="text-align:right;">$1.04</td>
+          <td style="text-align:right;">$603.56</td>
+          <td style="text-align:right;color:#6b7280;">$21/day</td>
+          <td style="text-align:right;">2.0</td>
+        </tr><tr>
+          <td style="font-weight:600;max-width:220px;font-size:13px;">[Search] CDL Trailers — Roseville/Sacramento</td>
+          <td>🟢 ENABLED</td>
+          <td style="font-size:12px;">Search</td>
+          <td style="text-align:right;">73</td>
+          <td style="text-align:right;font-weight:600;">9</td>
+          <td style="text-align:right;">12.33%</td>
+          <td style="text-align:right;">$3.08</td>
+          <td style="text-align:right;">$27.73</td>
+          <td style="text-align:right;color:#6b7280;">$20/day</td>
+          <td style="text-align:right;">0.0</td>
+        </tr><tr>
+          <td style="font-weight:600;max-width:220px;font-size:13px;">[Search] Equipment Rentals — Roseville/Sacramento</td>
+          <td>⏸️ PAUSED</td>
+          <td style="font-size:12px;">Search</td>
+          <td style="text-align:right;">6,957</td>
+          <td style="text-align:right;font-weight:600;">607</td>
+          <td style="text-align:right;">8.73%</td>
+          <td style="text-align:right;">$1.51</td>
+          <td style="text-align:right;">$915.19</td>
+          <td style="text-align:right;color:#6b7280;">$33/day</td>
+          <td style="text-align:right;color:#dc2626;font-weight:700;">0.0</td>
+        </tr><tr>
+          <td style="font-weight:600;max-width:220px;font-size:13px;">[Search] Trailer Rentals — Roseville/Sacramento</td>
+          <td>🟢 ENABLED</td>
+          <td style="font-size:12px;">Search</td>
+          <td style="text-align:right;">7,161</td>
+          <td style="text-align:right;font-weight:600;">1,062</td>
+          <td style="text-align:right;">14.83%</td>
+          <td style="text-align:right;">$1.36</td>
+          <td style="text-align:right;">$1446.67</td>
+          <td style="text-align:right;color:#6b7280;">$50/day</td>
+          <td style="text-align:right;color:#dc2626;font-weight:700;">0.0</td>
+        </tr></tbody>
+  </table>
+  </div>
+</div>
+
+<!-- Bidding phase -->
+<div class="card">
+  <h2>🎯 Bidding Phase Progress</h2>
+  <p style="font-size:12px;color:#6b7280;margin-bottom:14px;line-height:1.6">
+    Phase 1: Manual CPC (0–49 clicks) &rarr; Phase 2: Max Clicks / Target Spend (50+ clicks) &rarr; Phase 3: Max Conversions (15+ conversions) &rarr; Phase 4: Target CPA (30+ conversions)
+  </p>
+  <div style="overflow-x:auto">
+  <table>
+    <thead><tr>
+      <th>Campaign</th><th style="text-align:center">Phase</th><th>Target Strategy</th>
+      <th>Current Strategy</th><th style="text-align:right">Clicks</th>
+      <th style="text-align:right">Conversions</th><th>Progress</th>
+    </tr></thead>
+    <tbody><tr>
+          <td style="font-size:13px;font-weight:600;">Campaign #1</td>
+          <td style="text-align:center;"><span style="background:#2563eb;color:white;border-radius:12px;padding:3px 10px;font-size:12px;font-weight:700;">Phase 2</span></td>
+          <td style="font-size:13px;">Max Clicks (Target Spend)</td>
+          <td style="font-size:13px;">Maximize Conversions ⚠️</td>
+          <td style="text-align:right;">580</td>
+          <td style="text-align:right;">2</td>
+          <td style="font-size:12px;color:#6b7280;">
+            2/15 conversions needed for Phase 3
+            <div style="margin-top:4px;background:#e5e7eb;border-radius:4px;height:4px;width:120px;">
+              <div style="background:#2563eb;height:4px;border-radius:4px;width:13%;"></div>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-size:13px;font-weight:600;">[Search] CDL Trailers — Roseville/Sacramento</td>
+          <td style="text-align:center;"><span style="background:#6b7280;color:white;border-radius:12px;padding:3px 10px;font-size:12px;font-weight:700;">Phase 1</span></td>
+          <td style="font-size:13px;">Manual CPC</td>
+          <td style="font-size:13px;">Manual Cpc ✅</td>
+          <td style="text-align:right;">9</td>
+          <td style="text-align:right;">0</td>
+          <td style="font-size:12px;color:#6b7280;">
+            9/50 clicks needed for Phase 2
+            <div style="margin-top:4px;background:#e5e7eb;border-radius:4px;height:4px;width:120px;">
+              <div style="background:#6b7280;height:4px;border-radius:4px;width:18%;"></div>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-size:13px;font-weight:600;">[Search] Equipment Rentals — Roseville/Sacramento</td>
+          <td style="text-align:center;"><span style="background:#2563eb;color:white;border-radius:12px;padding:3px 10px;font-size:12px;font-weight:700;">Phase 2</span></td>
+          <td style="font-size:13px;">Max Clicks (Target Spend)</td>
+          <td style="font-size:13px;">Target Spend ✅</td>
+          <td style="text-align:right;">607</td>
+          <td style="text-align:right;">0</td>
+          <td style="font-size:12px;color:#6b7280;">
+            0/15 conversions needed for Phase 3
+            <div style="margin-top:4px;background:#e5e7eb;border-radius:4px;height:4px;width:120px;">
+              <div style="background:#2563eb;height:4px;border-radius:4px;width:0%;"></div>
+            </div>
+          </td>
+        </tr><tr>
+          <td style="font-size:13px;font-weight:600;">[Search] Trailer Rentals — Roseville/Sacramento</td>
+          <td style="text-align:center;"><span style="background:#2563eb;color:white;border-radius:12px;padding:3px 10px;font-size:12px;font-weight:700;">Phase 2</span></td>
+          <td style="font-size:13px;">Max Clicks (Target Spend)</td>
+          <td style="font-size:13px;">Target Spend ✅</td>
+          <td style="text-align:right;">1,062</td>
+          <td style="text-align:right;">0</td>
+          <td style="font-size:12px;color:#6b7280;">
+            0/15 conversions needed for Phase 3
+            <div style="margin-top:4px;background:#e5e7eb;border-radius:4px;height:4px;width:120px;">
+              <div style="background:#2563eb;height:4px;border-radius:4px;width:0%;"></div>
+            </div>
+          </td>
+        </tr></tbody>
+  </table>
+  </div>
+</div>
+
+<!-- Notes -->
+<div class="card">
+  <h2>📋 Ongoing Notes & Reminders</h2>
+  <div style="font-size:13px;color:#374151;line-height:1.8">
+    <p>• <strong>CDL Trailers</strong> launched April 15, 2026. Running at $20/day promo budget through ~April 29, then manually reduce to $10/day.</p>
+    <p>• <strong>Negative keywords added April 15:</strong> "car transporters" (phrase) to Equipment &amp; Trailer campaigns; CDL training terms (training, school, license, permit, class, test, exam, course, practice) to CDL campaign.</p>
+    <p>• <strong>Geo bid adjustments (manual):</strong> Roseville/Rocklin +20% · Sacramento baseline · Auburn/Lincoln/Davis −15% to −20%</p>
+    <p>• <strong>Conversion tracking</strong> confirmed broken as of April 15, 2026. Tag must be verified on tanddrentals.com before trusting conversion data.</p>
+    <p>• <strong>CPC Expected Ranges:</strong> Trailer keywords $3–10 · Equipment keywords $2.50–8 · CDL/gooseneck keywords $3–8</p>
+  </div>
+</div>
+
+</div>
+<div class="footer">Dashboard generated April 16, 2026 at 11:51 AM · T&D Rentals Google Ads · Automateboss</div>
+</body>
+</html>
