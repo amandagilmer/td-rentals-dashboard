@@ -6,253 +6,243 @@
 <title>T&D Rentals — Google Ads Dashboard</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-          background: #0f172a; color: #e2e8f0; min-height: 100vh; padding: 24px; }
-  h1 { font-size: 22px; font-weight: 700; color: #f8fafc; }
-  h2 { font-size: 15px; font-weight: 600; color: #94a3b8; text-transform: uppercase;
-        letter-spacing: 0.05em; margin-bottom: 14px; }
-  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-               gap: 12px; margin: 20px 0 28px; }
-  .kpi { background: #1e293b; border-radius: 12px; padding: 16px 18px; }
-  .kpi-label { font-size: 11px; color: #64748b; text-transform: uppercase;
-                letter-spacing: 0.06em; margin-bottom: 6px; }
-  .kpi-value { font-size: 26px; font-weight: 700; color: #f8fafc; line-height: 1; }
-  .kpi-sub { font-size: 11px; color: #94a3b8; margin-top: 4px; }
-  .section { background: #1e293b; border-radius: 14px; padding: 20px 24px; margin-bottom: 20px; }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th { text-align: left; padding: 8px 10px; font-size: 11px; color: #64748b;
-        text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #334155; }
-  td { padding: 10px 10px; border-bottom: 1px solid #1e293b; color: #cbd5e1; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f2f5; color: #1a1a2e; }
+  .header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); color: white; padding: 28px 32px; }
+  .header h1 { font-size: 1.8rem; font-weight: 700; }
+  .header p { opacity: 0.75; margin-top: 4px; font-size: 0.9rem; }
+  .badge { display: inline-block; background: #e94560; color: white; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; margin-left: 10px; vertical-align: middle; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 24px 20px; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 28px; }
+  .kpi-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border-left: 4px solid #0f3460; }
+  .kpi-card .label { font-size: 0.78rem; color: #666; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+  .kpi-card .value { font-size: 1.8rem; font-weight: 700; color: #0f3460; margin-top: 6px; }
+  .kpi-card .sub { font-size: 0.8rem; color: #888; margin-top: 3px; }
+  .section { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); margin-bottom: 24px; }
+  .section h2 { font-size: 1.1rem; font-weight: 700; color: #1a1a2e; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid #f0f2f5; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  th { background: #f8f9fb; text-align: left; padding: 10px 12px; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: #555; }
+  td { padding: 12px 12px; border-bottom: 1px solid #f0f2f5; vertical-align: middle; }
   tr:last-child td { border-bottom: none; }
-  tr:hover td { background: #0f172a44; }
-  .header-row { display: flex; justify-content: space-between; align-items: center;
-                 margin-bottom: 20px; flex-wrap: wrap; gap: 8px; }
-  .badge { display: inline-block; padding: 3px 10px; border-radius: 12px;
-            font-size: 11px; background: #0f172a; color: #64748b; }
-  @media (max-width: 600px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+  tr:hover td { background: #fafbfc; }
+  .status-enabled { color: #22863a; font-weight: 600; }
+  .status-paused { color: #e36209; font-weight: 600; }
+  .phase-badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 0.76rem; font-weight: 600; white-space: nowrap; }
+  .phase-1 { background: #fff3cd; color: #856404; }
+  .phase-2 { background: #d1ecf1; color: #0c5460; }
+  .phase-3 { background: #d4edda; color: #155724; }
+  .phase-4 { background: #e2d9f3; color: #4b0082; }
+  .alert-box { background: #fff8f0; border: 1px solid #ffd591; border-left: 4px solid #fa8c16; border-radius: 8px; padding: 14px 16px; margin-bottom: 12px; }
+  .alert-box.critical { background: #fff0f0; border-color: #ffb3b3; border-left-color: #e74c3c; }
+  .alert-box.info { background: #f0f7ff; border-color: #b3d4ff; border-left-color: #1890ff; }
+  .alert-title { font-weight: 700; font-size: 0.88rem; margin-bottom: 4px; }
+  .clarity-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+  .clarity-stat { background: #f8f9fb; border-radius: 8px; padding: 14px; text-align: center; }
+  .clarity-stat .c-val { font-size: 1.5rem; font-weight: 700; color: #0f3460; }
+  .clarity-stat .c-label { font-size: 0.76rem; color: #666; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .footer { text-align: center; padding: 20px; color: #888; font-size: 0.8rem; }
+  .progress-bar { background: #e9ecef; border-radius: 10px; height: 6px; margin-top: 6px; }
+  .progress-fill { background: #0f3460; height: 6px; border-radius: 10px; }
 </style>
 </head>
 <body>
-<div style="max-width:1100px;margin:0 auto">
+<div class="header">
+  <h1>T&D Rentals — Google Ads Dashboard <span class="badge">LIVE</span></h1>
+  <p>Last updated: April 24, 2026 &nbsp;·&nbsp; Customer ID: 7830253282 &nbsp;·&nbsp; <a href="https://td-rentals-dashboard.vercel.app" style="color:#a8d8ff">td-rentals-dashboard.vercel.app</a></p>
+</div>
+<div class="container">
 
-  <div class="header-row">
-    <div>
-      <h1>🚛 T&D Rentals — Google Ads Dashboard</h1>
-      <div style="margin-top:4px;font-size:13px;color:#64748b">Updated: April 22, 2026 at 11:57 AM</div>
-    </div>
-    <div>
-      <span style="background:#ef4444;color:#fff;border-radius:12px;padding:2px 10px;font-size:12px;margin-left:8px">2 critical</span>
-      <a href="https://ads.google.com" target="_blank"
-         style="display:inline-block;margin-left:8px;padding:6px 16px;background:#3b82f6;
-                color:#fff;border-radius:8px;text-decoration:none;font-size:13px">
-        Open Google Ads ↗
-      </a>
-    </div>
+<!-- KPI Cards -->
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <div class="label">Impressions</div>
+    <div class="value">60,413</div>
+    <div class="sub">All campaigns (lifetime)</div>
   </div>
-
-  <!-- KPI Cards -->
-  <div class="kpi-grid">
-    <div class="kpi">
-      <div class="kpi-label">Total Impressions</div>
-      <div class="kpi-value">57,219</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-label">Total Clicks</div>
-      <div class="kpi-value">2,792</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-label">Avg CTR</div>
-      <div class="kpi-value">4.88%</div>
-      <div class="kpi-sub">Search target: &gt;3%</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-label">Total Spend</div>
-      <div class="kpi-value">$3,521.13</div>
-      <div class="kpi-sub">All time</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-label">Avg CPC</div>
-      <div class="kpi-value">$1.26</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-label">Conversions</div>
-      <div class="kpi-value">4</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-label">Daily Budget</div>
-      <div class="kpi-value">$124</div>
-      <div class="kpi-sub">Target ~$124/day</div>
-    </div>
+  <div class="kpi-card">
+    <div class="label">Clicks</div>
+    <div class="value">2,937</div>
+    <div class="sub">All campaigns (lifetime)</div>
   </div>
-
-  <!-- Optimization Alerts -->
-  <div class="section">
-    <h2>⚡ Optimization Alerts <span style="background:#ef4444;color:#fff;border-radius:12px;padding:2px 10px;font-size:12px;margin-left:8px">2 critical</span></h2>
-    
-            <div style="background:#450a0a;border-left:3px solid #ef4444;border-radius:6px;padding:12px 16px;margin-bottom:8px;font-size:13px;color:#e2e8f0">
-              🚨 ⚠️ CONVERSION TRACKING — Equipment Rentals: 607 clicks, 0 conversions. Verify Google Ads conversion tag on tanddrentals.com
-            </div>
-            
-            <div style="background:#450a0a;border-left:3px solid #ef4444;border-radius:6px;padding:12px 16px;margin-bottom:8px;font-size:13px;color:#e2e8f0">
-              🚨 ⚠️ CONVERSION TRACKING — Trailer Rentals: 1364 clicks, 0 conversions. Verify Google Ads conversion tag on tanddrentals.com
-            </div>
-            
+  <div class="kpi-card">
+    <div class="label">Avg CTR</div>
+    <div class="value">4.86%</div>
+    <div class="sub">Across all campaigns</div>
   </div>
-
-  <!-- Campaign Table -->
-  <div class="section">
-    <h2>📊 Campaign Performance</h2>
-    <div style="overflow-x:auto">
-      <table>
-        <thead>
-          <tr>
-            <th>Campaign</th>
-            <th>Status</th>
-            <th style="text-align:right">Impressions</th>
-            <th style="text-align:right">Clicks</th>
-            <th style="text-align:right">CTR</th>
-            <th style="text-align:right">Spend</th>
-            <th style="text-align:right">Avg CPC</th>
-            <th style="text-align:right">Conv.</th>
-            <th style="text-align:right">Budget</th>
-            <th>Bidding</th>
-          </tr>
-        </thead>
-        <tbody>
-          
-        <tr>
-          <td><span style="font-weight:600;color:#f8fafc">Campaign #1</span>
-              <br><span style="font-size:11px;color:#94a3b8">Performance Max</span></td>
-          <td><span style="display:inline-block;padding:2px 8px;border-radius:12px;font-size:11px;background:#22c55e22;color:#22c55e">ENABLED</span></td>
-          <td style="text-align:right">40,782</td>
-          <td style="text-align:right">771</td>
-          <td style="text-align:right;color:#22c55e">1.89%</td>
-          <td style="text-align:right">$705.24</td>
-          <td style="text-align:right;color:#e2e8f0">$0.91</td>
-          <td style="text-align:right">4.0</td>
-          <td style="text-align:right">$21/day</td>
-          <td><span style="font-size:11px;color:#94a3b8">Maximize Conversions</span></td>
-        </tr>
-        
-        <tr>
-          <td><span style="font-weight:600;color:#f8fafc">CDL Trailers</span>
-              <br><span style="font-size:11px;color:#94a3b8">Search</span></td>
-          <td><span style="display:inline-block;padding:2px 8px;border-radius:12px;font-size:11px;background:#22c55e22;color:#22c55e">ENABLED</span></td>
-          <td style="text-align:right">420</td>
-          <td style="text-align:right">50</td>
-          <td style="text-align:right;color:#22c55e">11.90%</td>
-          <td style="text-align:right">$165.32</td>
-          <td style="text-align:right;color:#e2e8f0">$3.31</td>
-          <td style="text-align:right">0.0</td>
-          <td style="text-align:right">$20/day</td>
-          <td><span style="font-size:11px;color:#94a3b8">Manual Cpc</span></td>
-        </tr>
-        
-        <tr>
-          <td><span style="font-weight:600;color:#f8fafc">Equipment Rentals</span>
-              <br><span style="font-size:11px;color:#94a3b8">Search</span></td>
-          <td><span style="display:inline-block;padding:2px 8px;border-radius:12px;font-size:11px;background:#f59e0b22;color:#f59e0b">PAUSED</span></td>
-          <td style="text-align:right">6,957</td>
-          <td style="text-align:right">607</td>
-          <td style="text-align:right;color:#22c55e">8.73%</td>
-          <td style="text-align:right">$915.19</td>
-          <td style="text-align:right;color:#e2e8f0">$1.51</td>
-          <td style="text-align:right">0.0</td>
-          <td style="text-align:right">$33/day</td>
-          <td><span style="font-size:11px;color:#94a3b8">Target Spend</span></td>
-        </tr>
-        
-        <tr>
-          <td><span style="font-weight:600;color:#f8fafc">Trailer Rentals</span>
-              <br><span style="font-size:11px;color:#94a3b8">Search</span></td>
-          <td><span style="display:inline-block;padding:2px 8px;border-radius:12px;font-size:11px;background:#22c55e22;color:#22c55e">ENABLED</span></td>
-          <td style="text-align:right">9,060</td>
-          <td style="text-align:right">1,364</td>
-          <td style="text-align:right;color:#22c55e">15.06%</td>
-          <td style="text-align:right">$1735.37</td>
-          <td style="text-align:right;color:#e2e8f0">$1.27</td>
-          <td style="text-align:right">0.0</td>
-          <td style="text-align:right">$50/day</td>
-          <td><span style="font-size:11px;color:#94a3b8">Target Spend</span></td>
-        </tr>
-        
-        </tbody>
-      </table>
-    </div>
+  <div class="kpi-card">
+    <div class="label">Total Spend</div>
+    <div class="value">$3,717.64</div>
+    <div class="sub">Lifetime</div>
   </div>
-
-  <!-- Bidding Phase Progress -->
-  <div class="section">
-    <h2>🎯 Bidding Phase Progress</h2>
-    
-        <div style="background:#1e293b;border-radius:12px;padding:16px 20px;margin-bottom:12px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-            <div>
-              <span style="font-weight:600;color:#f8fafc">Campaign #1</span>
-              <span style="margin-left:8px;font-size:12px;color:#94a3b8">P-Max (auto)</span>
-            </div>
-            <span style="font-size:12px;color:#64748b">Performance Max manages bidding automatically</span>
-          </div>
-          <div style="background:#0f172a;border-radius:6px;height:8px;overflow:hidden">
-            <div style="background:#06b6d4;height:100%;width:100%;transition:width 0.3s"></div>
-          </div>
-          <div style="margin-top:6px;font-size:11px;color:#64748b">N/A</div>
-        </div>
-        
-        <div style="background:#1e293b;border-radius:12px;padding:16px 20px;margin-bottom:12px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-            <div>
-              <span style="font-weight:600;color:#f8fafc">CDL Trailers</span>
-              <span style="margin-left:8px;font-size:12px;color:#94a3b8">Phase 2</span>
-            </div>
-            <span style="font-size:12px;color:#64748b">0/15 conversions</span>
-          </div>
-          <div style="background:#0f172a;border-radius:6px;height:8px;overflow:hidden">
-            <div style="background:#8b5cf6;height:100%;width:0%;transition:width 0.3s"></div>
-          </div>
-          <div style="margin-top:6px;font-size:11px;color:#64748b">15 more conversions → Phase 3 (Max Conversions)</div>
-        </div>
-        
-        <div style="background:#1e293b;border-radius:12px;padding:16px 20px;margin-bottom:12px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-            <div>
-              <span style="font-weight:600;color:#f8fafc">Equipment Rentals</span>
-              <span style="margin-left:8px;font-size:12px;color:#94a3b8">Phase 2</span>
-            </div>
-            <span style="font-size:12px;color:#64748b">0/15 conversions</span>
-          </div>
-          <div style="background:#0f172a;border-radius:6px;height:8px;overflow:hidden">
-            <div style="background:#8b5cf6;height:100%;width:0%;transition:width 0.3s"></div>
-          </div>
-          <div style="margin-top:6px;font-size:11px;color:#64748b">15 more conversions → Phase 3 (Max Conversions)</div>
-        </div>
-        
-        <div style="background:#1e293b;border-radius:12px;padding:16px 20px;margin-bottom:12px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-            <div>
-              <span style="font-weight:600;color:#f8fafc">Trailer Rentals</span>
-              <span style="margin-left:8px;font-size:12px;color:#94a3b8">Phase 2</span>
-            </div>
-            <span style="font-size:12px;color:#64748b">0/15 conversions</span>
-          </div>
-          <div style="background:#0f172a;border-radius:6px;height:8px;overflow:hidden">
-            <div style="background:#8b5cf6;height:100%;width:0%;transition:width 0.3s"></div>
-          </div>
-          <div style="margin-top:6px;font-size:11px;color:#64748b">15 more conversions → Phase 3 (Max Conversions)</div>
-        </div>
-        
-    <div style="margin-top:12px;font-size:12px;color:#475569;line-height:1.6">
-      Phase 1: Manual CPC (0–50 clicks) →
-      Phase 2: Max Clicks (50+ clicks) →
-      Phase 3: Max Conversions (15+ conv.) →
-      Phase 4: Target CPA (30+ conv.)
-    </div>
+  <div class="kpi-card">
+    <div class="label">Conversions</div>
+    <div class="value">5</div>
+    <div class="sub">Phone calls tracked</div>
   </div>
-
-  <div style="text-align:center;font-size:11px;color:#334155;margin-top:12px;padding-bottom:8px">
-    Automateboss Dashboard Bot · support@automateboss.com · Data from Google Ads API
+  <div class="kpi-card">
+    <div class="label">Daily Budget</div>
+    <div class="value">$124/day</div>
+    <div class="sub">Total across campaigns</div>
   </div>
+</div>
 
+<!-- Optimization Alerts -->
+<div class="section">
+<h2>⚡ Optimization Alerts</h2>
+
+<div class="alert-box info">
+  <div class="alert-title">📞 Conversion Tracking Note</div>
+  T&D Rentals' primary conversions are phone calls. Customers see ads, visit the site, and call directly. Zero search campaign conversions is expected until Google Ads call tracking (forwarding number) or CallRail is configured.
+</div>
+
+<div class="alert-box">
+  <div class="alert-title">💰 CDL Budget Reminder — Due ~April 29, 2026</div>
+  CDL Trailers campaign is running at $20/day for its first 2 weeks. After April 29, manually reduce to $10/day.
+</div>
+</div>
+
+<div class="section">
+<h2>📊 Campaign Performance</h2>
+<table>
+<thead><tr>
+  <th>Campaign</th>
+  <th>Status</th>
+  <th>Type</th>
+  <th>Budget/day</th>
+  <th>Impressions</th>
+  <th>Clicks</th>
+  <th>CTR</th>
+  <th>Avg CPC</th>
+  <th>Spend</th>
+  <th>Conversions</th>
+</tr></thead>
+<tbody>
+<tr>
+      <td><strong>Campaign #1</strong><br><small style="color:#888">ID: 23238274972</small></td>
+      <td><span class="status-enabled">ENABLED</span></td>
+      <td>PERFORMANCE MAX</td>
+      <td>$21.00</td>
+      <td>42,982</td>
+      <td>807</td>
+      <td>1.88%</td>
+      <td>$0.93</td>
+      <td>$752.08</td>
+      <td>5.0</td>
+    </tr><tr>
+      <td><strong>[Search] CDL Trailers — Roseville/Sacramento</strong><br><small style="color:#888">ID: 23757385802</small></td>
+      <td><span class="status-enabled">ENABLED</span></td>
+      <td>SEARCH</td>
+      <td>$20.00</td>
+      <td>545</td>
+      <td>63</td>
+      <td>11.56%</td>
+      <td>$3.33</td>
+      <td>$209.71</td>
+      <td>0.0</td>
+    </tr><tr>
+      <td><strong>[Search] Equipment Rentals — Roseville/Sacramento</strong><br><small style="color:#888">ID: 23676880507</small></td>
+      <td><span class="status-paused">PAUSED</span></td>
+      <td>SEARCH</td>
+      <td>$33.00</td>
+      <td>6,957</td>
+      <td>607</td>
+      <td>8.73%</td>
+      <td>$1.51</td>
+      <td>$915.19</td>
+      <td>0.0</td>
+    </tr><tr>
+      <td><strong>[Search] Trailer Rentals — Roseville/Sacramento</strong><br><small style="color:#888">ID: 23666252625</small></td>
+      <td><span class="status-enabled">ENABLED</span></td>
+      <td>SEARCH</td>
+      <td>$50.00</td>
+      <td>9,929</td>
+      <td>1,460</td>
+      <td>14.70%</td>
+      <td>$1.26</td>
+      <td>$1840.66</td>
+      <td>0.0</td>
+    </tr></tbody></table></div>
+
+<div class="section">
+<h2>🎯 Bidding Phase Progress</h2>
+<table>
+<thead><tr>
+  <th>Campaign</th>
+  <th>Current Phase</th>
+  <th>Bidding Strategy</th>
+  <th>Clicks Progress</th>
+  <th>Conv Progress</th>
+  <th>Next Milestone</th>
+</tr></thead>
+<tbody>
+<tr>
+      <td><strong>Campaign #1</strong></td>
+      <td><span class="phase-badge phase-2">✅ Phase 2 Active</span></td>
+      <td>MAXIMIZE CONVERSIONS</td>
+      <td>
+        807/50
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+      </td>
+      <td>
+        5/30
+        <div class="progress-bar"><div class="progress-fill" style="width:17%"></div></div>
+      </td>
+      <td style="font-size:0.82rem; color:#555">10 more conv → Phase 3</td>
+    </tr><tr>
+      <td><strong>[Search] CDL Trailers — Roseville/Sacramento</strong></td>
+      <td><span class="phase-badge phase-2">✅ Phase 2 Active</span></td>
+      <td>MANUAL CPC</td>
+      <td>
+        63/50
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+      </td>
+      <td>
+        0/30
+        <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+      </td>
+      <td style="font-size:0.82rem; color:#555">15 more conv → Phase 3</td>
+    </tr><tr>
+      <td><strong>[Search] Equipment Rentals — Roseville/Sacramento</strong></td>
+      <td><span class="phase-badge phase-2">✅ Phase 2 Active</span></td>
+      <td>TARGET SPEND</td>
+      <td>
+        607/50
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+      </td>
+      <td>
+        0/30
+        <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+      </td>
+      <td style="font-size:0.82rem; color:#555">15 more conv → Phase 3</td>
+    </tr><tr>
+      <td><strong>[Search] Trailer Rentals — Roseville/Sacramento</strong></td>
+      <td><span class="phase-badge phase-2">✅ Phase 2 Active</span></td>
+      <td>TARGET SPEND</td>
+      <td>
+        1460/50
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+      </td>
+      <td>
+        0/30
+        <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+      </td>
+      <td style="font-size:0.82rem; color:#555">15 more conv → Phase 3</td>
+    </tr></tbody></table></div>
+
+<div class="section">
+<h2>🌐 Website Analytics (Microsoft Clarity — Last 7 Days)</h2>
+<div class="clarity-grid">
+  <div class="clarity-stat"><div class="c-val">657</div><div class="c-label">Sessions</div></div>
+  <div class="clarity-stat"><div class="c-val">559</div><div class="c-label">Users</div></div>
+  <div class="clarity-stat"><div class="c-val">1.29</div><div class="c-label">Pages/Session</div></div>
+  <div class="clarity-stat"><div class="c-val">2:34</div><div class="c-label">Avg Session Duration</div></div>
+  <div class="clarity-stat"><div class="c-val">82.9%</div><div class="c-label">Bounce Rate</div></div>
+</div>
+<p style="margin-top:16px; font-size:0.85rem; color:#666;">Note: High bounce rate is expected for a local service business — most visitors see the phone number and call directly.</p>
+</div>
+
+<div class="footer">
+  T&D Rentals Google Ads Dashboard &nbsp;·&nbsp; Auto-generated April 24, 2026 &nbsp;·&nbsp; Powered by Automateboss
+</div>
 </div>
 </body>
 </html>
