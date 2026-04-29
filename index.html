@@ -1,223 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T&D Rentals — Google Ads Dashboard</title>
-    <style>
-        *{box-sizing:border-box;margin:0;padding:0}
-        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f0f2f5;color:#333;font-size:14px}
-        .header{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);color:white;padding:24px 32px;display:flex;justify-content:space-between;align-items:center}
-        .header h1{font-size:22px;font-weight:700}
-        .container{max-width:1400px;margin:0 auto;padding:24px 20px}
-        .section{background:white;border-radius:12px;padding:20px 24px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
-        .section h2{font-size:16px;font-weight:700;color:#1a1a2e;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid #f0f2f5}
-        .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}
-        .kpi-card{background:linear-gradient(135deg,#f8f9ff 0%,#f0f4ff 100%);border:1px solid #e0e6ff;border-radius:10px;padding:16px 18px;text-align:center}
-        .kpi-value{font-size:26px;font-weight:800;color:#1a1a2e;line-height:1.2}
-        .kpi-label{font-size:11px;color:#666;text-transform:uppercase;letter-spacing:0.5px;margin-top:4px}
-        table{width:100%;border-collapse:collapse;font-size:13px}
-        th{background:#f8f9ff;color:#1a1a2e;font-weight:700;text-transform:uppercase;font-size:11px;letter-spacing:0.5px;padding:10px 12px;text-align:left;border-bottom:2px solid #e0e6ff}
-        td{padding:12px;border-bottom:1px solid #f0f2f5;vertical-align:middle}
-        tr:hover td{background:#fafbff}
-        .status-badge{padding:3px 8px;border-radius:12px;font-size:11px;font-weight:600;text-transform:uppercase}
-        .status-enabled{background:#e8f5e9;color:#2e7d32}
-        .status-paused{background:#fff3e0;color:#e65100}
-        .alert-high{color:#e65100;font-weight:700}
-        .alert-critical{color:#c62828;font-weight:700}
-        .footer{text-align:center;padding:16px;color:#999;font-size:12px}
-    </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>T&amp;D Rentals — Google Ads Dashboard</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f1117;color:#e0e0e0}
+.header{background:linear-gradient(135deg,#1a1f2e,#2d1b69);padding:22px 32px;border-bottom:1px solid #333}
+.header h1{font-size:22px;font-weight:700;color:#fff}
+.header p{color:#aaa;font-size:12px;margin-top:4px}
+.live{display:inline-block;background:#22c55e;color:#000;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:8px;vertical-align:middle}
+.container{max-width:1400px;margin:0 auto;padding:20px 28px}
+.sec{font-size:13px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:1px;margin:24px 0 10px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:6px}
+.kpi{background:#1a1f2e;border:1px solid #2a2f40;border-radius:10px;padding:18px 16px}
+.kpi.hl{border-color:#6366f1}.kpi.gr{border-color:#22c55e}.kpi.am{border-color:#f59e0b}
+.kpi .lb{font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.kpi .vl{font-size:24px;font-weight:700;color:#fff}
+.kpi .sb{font-size:11px;color:#666;margin-top:3px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:#1a1f2e;color:#888;font-weight:600;text-transform:uppercase;font-size:11px;letter-spacing:.5px;padding:9px 11px;text-align:left;border-bottom:1px solid #2a2f40}
+td{padding:11px 11px;border-bottom:1px solid #1a1f2e;vertical-align:top}
+tr:hover td{background:#1a1f2e}
+.tw{background:#12151f;border:1px solid #2a2f40;border-radius:10px;overflow:hidden;margin-bottom:20px;overflow-x:auto}
+.badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:600}
+.badge-enabled{background:#14532d;color:#22c55e}.badge-paused{background:#451a03;color:#f59e0b}
+.text-green{color:#22c55e;font-weight:600}.text-red{color:#ef4444;font-weight:600}
+.alerts{display:flex;flex-direction:column;gap:7px;margin-bottom:20px}
+.alert-item{padding:9px 14px;border-radius:7px;font-size:13px}
+.alert-critical{background:#2d1b1b;border:1px solid #7f1d1d;color:#fca5a5}
+.alert-info{background:#1a2340;border:1px solid #1e3a5f;color:#93c5fd}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.note{background:#1a2340;border:1px solid #1e3a5f;border-radius:8px;padding:12px 14px;font-size:13px;color:#93c5fd;margin-bottom:14px}
+.note.warn{background:#2d1b1b;border-color:#7f1d1d;color:#fca5a5}
+.footer{text-align:center;color:#444;font-size:11px;padding:28px}
+@media(max-width:768px){.two{grid-template-columns:1fr}.container{padding:14px}}
+</style>
 </head>
 <body>
 <div class="header">
-    <div>
-        <h1>🚛 T&D Rentals — Google Ads Dashboard</h1>
-        <div style="font-size:13px;color:#aaa;margin-top:4px">Live campaign performance</div>
-    </div>
-    <div style="font-size:12px;color:#88aacc">Last updated: April 28, 2026 at 03:13 PM</div>
+  <h1>T&amp;D Rentals — Google Ads Dashboard <span class="live">LIVE</span></h1>
+  <p>Updated: 2026-04-29 14:15 UTC &nbsp;·&nbsp; Customer: 7830253282 &nbsp;·&nbsp; <a href="https://td-rentals-dashboard.vercel.app" style="color:#6366f1">td-rentals-dashboard.vercel.app</a></p>
 </div>
 <div class="container">
-    <div class="section">
-        <h2>📊 Key Performance Indicators (All-Time)</h2>
-        <div class="kpi-grid">
-            <div class="kpi-card"><div class="kpi-value">79,651</div><div class="kpi-label">Total Impressions</div></div>
-            <div class="kpi-card"><div class="kpi-value">3,258</div><div class="kpi-label">Total Clicks</div></div>
-            <div class="kpi-card"><div class="kpi-value">4.09%</div><div class="kpi-label">Avg CTR</div></div>
-            <div class="kpi-card"><div class="kpi-value">$1.25</div><div class="kpi-label">Avg CPC</div></div>
-            <div class="kpi-card"><div class="kpi-value">$4086.51</div><div class="kpi-label">Total Spend</div></div>
-            <div class="kpi-card"><div class="kpi-value">5</div><div class="kpi-label">Conversions</div></div>
-            <div class="kpi-card"><div class="kpi-value">$124/day</div><div class="kpi-label">Daily Budget</div></div>
-        </div>
-    </div>
-    <div class="section">
-        <h2>⚡ Optimization Alerts</h2>
-        <div style="background:#e8f4fd;border-left:4px solid #2196F3;padding:10px 14px;margin:6px 0;border-radius:4px;font-size:13px">ℹ️ Conversion Note — [Search] Equipment Rentals — Roseville/Sacramento: 607 clicks, 0 conversions. Phone-call based — zero conversions expected until call tracking is set up.</div><div style="background:#e8f4fd;border-left:4px solid #2196F3;padding:10px 14px;margin:6px 0;border-radius:4px;font-size:13px">ℹ️ Conversion Note — [Search] Trailer Rentals — Roseville/Sacramento: 1599 clicks, 0 conversions. Phone-call based — zero conversions expected until call tracking is set up.</div>
-    </div>
-    <div class="section">
-        <h2>📋 Campaign Performance</h2>
-        <div style="overflow-x:auto">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Campaign</th><th>Status</th><th>Type</th><th>Daily Budget</th>
-                        <th>Impressions</th><th>Clicks</th><th>CTR</th><th>Avg CPC</th>
-                        <th>Total Spend</th><th>Conv.</th><th>Bidding Phase</th>
-                    </tr>
-                </thead>
-                <tbody>
-        <tr>
-            <td><strong>Campaign #1</strong><br><small style="color:#666">ID: 23238274972</small></td>
-            <td><span class="status-badge status-enabled">ENABLED</span></td>
-            <td>PERFORMANCE MAX</td>
-            <td>$21/day</td>
-            <td>60,489</td>
-            <td>967</td>
-            <td class="">1.60%</td>
-            <td class="">$0.88</td>
-            <td>$854.66</td>
-            <td>5</td>
-            <td>
-                <div style="font-size:12px;font-weight:bold;color:#2196F3">Phase 2</div>
-                <div style="font-size:11px;color:#666">Phase 2: Max Clicks</div>
-                <div style="background:#eee;border-radius:4px;height:6px;margin:4px 0">
-                    <div style="background:#2196F3;width:50.0%;height:6px;border-radius:4px"></div>
-                </div>
-                <div style="font-size:10px;color:#888">Need 10 more conv for Phase 3</div>
-            </td>
-        </tr>
-        <tr>
-            <td><strong>[Search] CDL Trailers — Roseville/Sacramento</strong><br><small style="color:#666">ID: 23757385802</small></td>
-            <td><span class="status-badge status-enabled">ENABLED</span></td>
-            <td>SEARCH</td>
-            <td>$20/day</td>
-            <td>730</td>
-            <td>85</td>
-            <td class="">11.64%</td>
-            <td class="">$3.27</td>
-            <td>$277.76</td>
-            <td>0</td>
-            <td>
-                <div style="font-size:12px;font-weight:bold;color:#2196F3">Phase 2</div>
-                <div style="font-size:11px;color:#666">Phase 2: Max Clicks</div>
-                <div style="background:#eee;border-radius:4px;height:6px;margin:4px 0">
-                    <div style="background:#2196F3;width:50.0%;height:6px;border-radius:4px"></div>
-                </div>
-                <div style="font-size:10px;color:#888">Need 15 more conv for Phase 3</div>
-            </td>
-        </tr>
-        <tr>
-            <td><strong>[Search] Equipment Rentals — Roseville/Sacramento</strong><br><small style="color:#666">ID: 23676880507</small></td>
-            <td><span class="status-badge status-paused">PAUSED</span></td>
-            <td>SEARCH</td>
-            <td>$33/day</td>
-            <td>6,957</td>
-            <td>607</td>
-            <td class="">8.73%</td>
-            <td class="">$1.51</td>
-            <td>$915.19</td>
-            <td>0</td>
-            <td>
-                <div style="font-size:12px;font-weight:bold;color:#2196F3">Phase 2</div>
-                <div style="font-size:11px;color:#666">Phase 2: Max Clicks</div>
-                <div style="background:#eee;border-radius:4px;height:6px;margin:4px 0">
-                    <div style="background:#2196F3;width:50.0%;height:6px;border-radius:4px"></div>
-                </div>
-                <div style="font-size:10px;color:#888">Need 15 more conv for Phase 3</div>
-            </td>
-        </tr>
-        <tr>
-            <td><strong>[Search] Trailer Rentals — Roseville/Sacramento</strong><br><small style="color:#666">ID: 23666252625</small></td>
-            <td><span class="status-badge status-enabled">ENABLED</span></td>
-            <td>SEARCH</td>
-            <td>$50/day</td>
-            <td>11,475</td>
-            <td>1,599</td>
-            <td class="">13.93%</td>
-            <td class="">$1.28</td>
-            <td>$2038.89</td>
-            <td>0</td>
-            <td>
-                <div style="font-size:12px;font-weight:bold;color:#2196F3">Phase 2</div>
-                <div style="font-size:11px;color:#666">Phase 2: Max Clicks</div>
-                <div style="background:#eee;border-radius:4px;height:6px;margin:4px 0">
-                    <div style="background:#2196F3;width:50.0%;height:6px;border-radius:4px"></div>
-                </div>
-                <div style="font-size:10px;color:#888">Need 15 more conv for Phase 3</div>
-            </td>
-        </tr></tbody>
-            </table>
-        </div>
-    </div>
-    <div class="section" style="background:#f8f9ff;border:1px solid #e0e6ff">
-        <h2>🖥️ Website Analytics (Last 7 Days — Microsoft Clarity)</h2>
-        <p style="color:#666;font-size:13px">
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:18px">
-    <div style="background:linear-gradient(135deg,#f8f9ff,#f0f4ff);border:1px solid #e0e6ff;border-radius:10px;padding:14px;text-align:center">
-        <div style="font-size:24px;font-weight:800;color:#1a1a2e">582</div>
-        <div style="font-size:11px;color:#666;text-transform:uppercase;letter-spacing:0.5px;margin-top:4px">Sessions</div>
-    </div>
-    <div style="background:linear-gradient(135deg,#f8f9ff,#f0f4ff);border:1px solid #e0e6ff;border-radius:10px;padding:14px;text-align:center">
-        <div style="font-size:24px;font-weight:800;color:#1a1a2e">490</div>
-        <div style="font-size:11px;color:#666;text-transform:uppercase;letter-spacing:0.5px;margin-top:4px">Users</div>
-    </div>
-    <div style="background:linear-gradient(135deg,#f8f9ff,#f0f4ff);border:1px solid #e0e6ff;border-radius:10px;padding:14px;text-align:center">
-        <div style="font-size:24px;font-weight:800;color:#1a1a2e">82.9%</div>
-        <div style="font-size:11px;color:#666;text-transform:uppercase;letter-spacing:0.5px;margin-top:4px">Bounce Rate</div>
-    </div>
-    <div style="background:linear-gradient(135deg,#f8f9ff,#f0f4ff);border:1px solid #e0e6ff;border-radius:10px;padding:14px;text-align:center">
-        <div style="font-size:24px;font-weight:800;color:#1a1a2e">83%</div>
-        <div style="font-size:11px;color:#666;text-transform:uppercase;letter-spacing:0.5px;margin-top:4px">Mobile Traffic</div>
-    </div>
-    <div style="background:linear-gradient(135deg,#f8f9ff,#f0f4ff);border:1px solid #e0e6ff;border-radius:10px;padding:14px;text-align:center">
-        <div style="font-size:24px;font-weight:800;color:#1a1a2e">2.7 min</div>
-        <div style="font-size:11px;color:#666;text-transform:uppercase;letter-spacing:0.5px;margin-top:4px">Avg Session</div>
-    </div>
-    <div style="background:linear-gradient(135deg,#fff8e1,#fff3cd);border:1px solid #ffd54f;border-radius:10px;padding:14px;text-align:center">
-        <div style="font-size:24px;font-weight:800;color:#e65100">11.6%</div>
-        <div style="font-size:11px;color:#e65100;text-transform:uppercase;letter-spacing:0.5px;margin-top:4px">Dead Clicks ⚠️</div>
-    </div>
+
+<div class="sec">📊 Campaign KPIs — All Time</div>
+<div class="kpis">
+  <div class="kpi hl"><div class="lb">Impressions</div><div class="vl">80,002</div></div>
+  <div class="kpi"><div class="lb">Clicks</div><div class="vl">3,293</div></div>
+  <div class="kpi"><div class="lb">Avg CTR</div><div class="vl">4.12%</div></div>
+  <div class="kpi am"><div class="lb">Total Spend</div><div class="vl">$4,173.90</div></div>
+  <div class="kpi"><div class="lb">Avg CPC</div><div class="vl">$1.27</div></div>
+  <div class="kpi"><div class="lb">Conversions</div><div class="vl">6</div><div class="sb">📞 Phone calls not tracked</div></div>
+  <div class="kpi gr"><div class="lb">Daily Budget</div><div class="vl">$124/day</div><div class="sb">CDL drops $20→$10 today</div></div>
 </div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
-    <div>
-        <div style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:8px">📱 Device Split</div>
-        <div style="font-size:12px;color:#444;line-height:2">
-            <span style="display:inline-block;width:70px;font-weight:600">Mobile:</span> 83% (483 sessions)<br>
-            <span style="display:inline-block;width:70px;font-weight:600">PC:</span> 11% (67 sessions)<br>
-            <span style="display:inline-block;width:70px;font-weight:600">Tablet:</span> 6% (34 sessions)
-        </div>
-    </div>
-    <div>
-        <div style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:8px">📊 Channel Mix</div>
-        <div style="font-size:12px;color:#444;line-height:2">
-            <span style="display:inline-block;width:110px;font-weight:600">Paid Search:</span> 382 (65.6%)<br>
-            <span style="display:inline-block;width:110px;font-weight:600">Direct:</span> 50 (8.6%)<br>
-            <span style="display:inline-block;width:110px;font-weight:600">Organic:</span> 15 (2.6%)
-        </div>
-    </div>
+
+<div class="sec">⚡ Alerts</div>
+<div class="alerts"><div class="alert-item alert-info">📞 CONV NOTE: [Search] Equipment Rentals — Roseville/Sacramento — 607 clicks, 0 conversions. Phone-call conversions not tracked yet.</div><div class="alert-item alert-info">📞 CONV NOTE: [Search] Trailer Rentals — Roseville/Sacramento — 1625 clicks, 0 conversions. Phone-call conversions not tracked yet.</div><div class="alert-item alert-critical">⚠️ CDL BUDGET REMINDER: April 29 today — CDL Trailers budget should drop $20/day → $10/day. Verify manually.</div></div>
+
+<div class="sec">🎯 Campaign Performance</div>
+<div class="tw"><table>
+  <thead><tr><th>Campaign</th><th>Status</th><th>Type</th><th>Budget</th><th>Impressions</th><th>Clicks</th><th>CTR</th><th>Spend</th><th>Avg CPC</th><th>Conv.</th><th>Bidding Phase</th></tr></thead>
+  <tbody><tr><td><strong>Campaign #1</strong><br><small style="color:#888">ID: 23238274972 | Maximize Conversions</small></td><td><span class="badge badge-enabled">ENABLED</span></td><td style="font-size:11px">Performance Max</td><td>$21/day</td><td>60,508</td><td>971</td><td class="text-green">1.60%</td><td>$879.30</td><td style="">$0.91</td><td>6.0</td><td style="font-size:11px"><strong>Ph.2: Max Clicks</strong><br><span style="color:#888">6/15 convs for Phase 3</span></td></tr><tr><td><strong>[Search] CDL Trailers — Roseville/Sacramento</strong><br><small style="color:#888">ID: 23757385802 | Manual Cpc</small></td><td><span class="badge badge-enabled">ENABLED</span></td><td style="font-size:11px">Search</td><td>$20/day</td><td>768</td><td>90</td><td class="text-green">11.72%</td><td>$294.83</td><td style="">$3.28</td><td>0.0</td><td style="font-size:11px"><strong>Ph.2: Max Clicks</strong><br><span style="color:#888">0/15 convs for Phase 3</span></td></tr><tr><td><strong>[Search] Equipment Rentals — Roseville/Sacramento</strong><br><small style="color:#888">ID: 23676880507 | Target Spend</small></td><td><span class="badge badge-paused">PAUSED</span></td><td style="font-size:11px">Search</td><td>$33/day</td><td>6,957</td><td>607</td><td class="text-green">8.73%</td><td>$915.19</td><td style="">$1.51</td><td>0.0</td><td style="font-size:11px"><strong>Ph.2: Max Clicks</strong><br><span style="color:#888">0/15 convs for Phase 3</span></td></tr><tr><td><strong>[Search] Trailer Rentals — Roseville/Sacramento</strong><br><small style="color:#888">ID: 23666252625 | Target Spend</small></td><td><span class="badge badge-enabled">ENABLED</span></td><td style="font-size:11px">Search</td><td>$50/day</td><td>11,769</td><td>1,625</td><td class="text-green">13.81%</td><td>$2084.57</td><td style="">$1.28</td><td>0.0</td><td style="font-size:11px"><strong>Ph.2: Max Clicks</strong><br><span style="color:#888">0/15 convs for Phase 3</span></td></tr></tbody>
+</table></div>
+
+<div class="sec">🌐 Website — Microsoft Clarity (Last 7 Days)</div>
+<div class="note">
+  📅 Apr 22–29, 2026 &nbsp;·&nbsp; Sessions: <strong>574</strong> &nbsp;·&nbsp;
+  Users: <strong>476</strong> &nbsp;·&nbsp;
+  Avg Session: <strong>2m 48s</strong> &nbsp;·&nbsp;
+  Bounce Rate: <strong>83.33%</strong> &nbsp;·&nbsp;
+  Dead Clicks: <strong>10.94%</strong> &nbsp;·&nbsp;
+  Rage Clicks: <strong>0.35%</strong>
 </div>
-<div style="margin-top:14px">
-    <div style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:8px">🏆 Top Pages (by Engagement Time)</div>
-    <table style="width:100%;font-size:12px;border-collapse:collapse">
-        <tr style="background:#f0f2f5"><th style="padding:6px 10px;text-align:left">Page</th><th style="padding:6px 10px;text-align:right">Sessions</th><th style="padding:6px 10px;text-align:right">Avg Engagement</th></tr>
-        <tr><td style="padding:5px 10px">Car Hauler</td><td style="padding:5px 10px;text-align:right">25</td><td style="padding:5px 10px;text-align:right;font-weight:700;color:#2e7d32">86 sec 🏆</td></tr>
-        <tr style="background:#f9f9f9"><td style="padding:5px 10px">Dump Trailers</td><td style="padding:5px 10px;text-align:right">49</td><td style="padding:5px 10px;text-align:right;font-weight:700;color:#2e7d32">59 sec</td></tr>
-        <tr><td style="padding:5px 10px">Deck Over Tilt</td><td style="padding:5px 10px;text-align:right">34</td><td style="padding:5px 10px;text-align:right">50 sec</td></tr>
-        <tr style="background:#f9f9f9"><td style="padding:5px 10px">Homepage (/)</td><td style="padding:5px 10px;text-align:right">180</td><td style="padding:5px 10px;text-align:right">45 sec</td></tr>
-        <tr><td style="padding:5px 10px">Rentals</td><td style="padding:5px 10px;text-align:right">109</td><td style="padding:5px 10px;text-align:right">44 sec</td></tr>
-    </table>
+<div class="note warn">🐛 UX ISSUE: Brand logo on /deck-over-tilt-tailers is NOT linked — users are rage-clicking it expecting to navigate home. Flag to web developer to add href to homepage.</div>
+
+<div class="two">
+  <div>
+    <div class="sec" style="margin-top:0">Top Pages by Sessions</div>
+    <div class="tw"><table>
+      <thead><tr><th>Page</th><th>Sessions</th><th>Avg Engagement</th></tr></thead>
+      <tbody><tr><td style='font-size:12px'>/</td><td>182</td><td>50s</td></tr><tr><td style='font-size:12px'>/utility-trailers</td><td>157</td><td>35s</td></tr><tr><td style='font-size:12px'>/rentals</td><td>114</td><td>39s</td></tr><tr><td style='font-size:12px'>/dump-trailers</td><td>42</td><td>58s</td></tr><tr><td style='font-size:12px'>/cdl-trailers</td><td>38</td><td>41s</td></tr><tr><td style='font-size:12px'>/car-hauler</td><td>33</td><td>76s</td></tr><tr><td style='font-size:12px'>/deck-over-tilt-tailers</td><td>32</td><td>48s</td></tr><tr><td style='font-size:12px'>/enclosed-trailers</td><td>22</td><td>32s</td></tr><tr><td style='font-size:12px'>/home</td><td>17</td><td>77s</td></tr><tr><td style='font-size:12px'>/contact_us</td><td>9</td><td>29s</td></tr></tbody>
+    </table></div>
+  </div>
+  <div>
+    <div class="sec" style="margin-top:0">Traffic by Channel</div>
+    <div class="tw" style="margin-bottom:14px"><table>
+      <thead><tr><th>Channel</th><th>Sessions</th></tr></thead>
+      <tbody><tr><td>PaidSearch</td><td>367</td></tr><tr><td>Direct</td><td>52</td></tr><tr><td>OrganicSearch</td><td>17</td></tr></tbody>
+    </table></div>
+    <div class="sec" style="margin-top:0">Device Breakdown</div>
+    <div class="tw"><table>
+      <thead><tr><th>Device</th><th>Sessions</th><th>%</th></tr></thead>
+      <tbody><tr><td>Mobile</td><td>484</td><td>84.0%</td></tr><tr><td>PC</td><td>61</td><td>10.6%</td></tr><tr><td>Tablet</td><td>31</td><td>5.4%</td></tr></tbody>
+    </table></div>
+  </div>
 </div>
-<div style="margin-top:14px;background:#fff3e0;border:1px solid #ffb74d;border-radius:8px;padding:12px 14px">
-    <div style="font-size:13px;font-weight:700;color:#e65100;margin-bottom:6px">⚠️ UX Issue: "Call Now" Button — Dead Clicks Detected</div>
-    <div style="font-size:12px;color:#bf360c;line-height:1.6">
-        Multiple users are clicking the "Call Now" button and registering it as a dead click. On mobile, the phone number may not be set as a clickable tel: link. This is the primary CTA for a phone-call business — worth flagging to the web developer.
-    </div>
-</div></p>
-    </div>
-    <div class="section" style="background:#e8f4fd;border:1px solid #90caf9">
-        <h2 style="color:#1565c0">📞 Conversion Tracking Note</h2>
-        <p style="font-size:13px;color:#1565c0;line-height:1.6">T&D Rentals' primary conversions are <strong>phone calls</strong>. Zero conversions on search campaigns does <strong>not</strong> indicate a broken tag — customers call directly after viewing the site. <strong>Recommendation:</strong> Set up Google Ads call conversion tracking or CallRail to capture real conversion data.</p>
-    </div>
+
 </div>
-<div class="footer">T&D Rentals Google Ads Dashboard · Powered by Automateboss · April 28, 2026 at 03:13 PM</div>
-</body>
-</html>
+<div class="footer">T&amp;D Rentals Google Ads Dashboard &nbsp;·&nbsp; Automateboss &nbsp;·&nbsp; 2026-04-29 14:15 UTC</div>
+</body></html>
